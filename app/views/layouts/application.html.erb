@@ -38,29 +38,7 @@
   </head>
   <body>
 
-    <div class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <%= link_to "Finance Tracker", root_path, class: 'navbar-brand' %>
-        <div class="navbar-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav">
-            <li><%= link_to "My Portfolio", my_portfolio_path %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <% if user_signed_in? %>
-              <li><%= button_to('Log out', destroy_user_session_path, method: :delete, class: 'btn btn-default navbar-btn') %></li>
-            <% else %>
-              <li><%= button_to('Sign in', new_user_session_path, class: 'btn btn-default navbar-btn') %></li>
-              <li><%= button_to('Sign up', new_user_registration_path, class: 'btn btn-success navbar-btn') %></li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <%= render 'layouts/navigation' %>
 
     <div class="container">
       <div class="row">
