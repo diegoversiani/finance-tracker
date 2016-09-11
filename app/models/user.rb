@@ -47,23 +47,11 @@ class User < ActiveRecord::Base
 
     param.strip!
     param.downcase!
-    (matches('first_name', param) + last_name_matches(param) + email_name_matches(param)).uniq
-  end
-
-  def self.first_name_matches(param)
-    matches('first_name', param)
-  end
-
-  def self.last_name_matches(param)
-    matches('last_name', param)
-  end
-
-  def self.email_name_matches(param)
-    matches('email', param)
+    (matches('first_name', param) + matches('last_name', param) + matches('email', param)).uniq
   end
 
   def self.matches(field_name, param)
-    where("lower(#{field_name}) like ?", "%#{param}")
+    where("lower(#{field_name}) like ?", "%#{param}%")
   end
 
 end

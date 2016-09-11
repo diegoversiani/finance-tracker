@@ -1,4 +1,4 @@
-<h2>My friends</h2>
+<h2>Following</h2>
 
 <table class="table table-striped">
   <thead>
@@ -18,7 +18,7 @@
                 user_path(friend),
                 class: 'btn btn-xs btn-primary' %>
 
-        <%= link_to 'Unfriend',
+        <%= link_to 'Stop Following',
                 friendship_path(friend),
                 method: :delete,
                 data: {confirm: "Are you sure?"},

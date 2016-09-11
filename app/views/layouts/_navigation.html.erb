@@ -9,16 +9,19 @@
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav">
             <% if user_signed_in? %>
-            <li><%= link_to "My Portfolio", my_portfolio_path %></li>
-            <li><%= link_to "My Profile", edit_registration_path(current_user) %></li>
-            <li><%= link_to "My Friends", my_friends_path %></li>
+            <li><%= link_to "My Stocks", my_portfolio_path %></li>
+            <li><%= link_to "Following", my_friends_path %></li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
-              <li class="user-name text-right">
-                <i class="fa fa-user"></i>
-                <%= current_user.full_name.present? ? current_user.full_name : current_user.email %>
+              <li>
+                <%= button_to( edit_registration_path(current_user),
+                        method: :get,
+                        class: 'btn navbar-btn') do %>
+                  <i class="fa fa-user"></i>
+                  <%= current_user.full_name.present? ? current_user.full_name : current_user.email%>
+                <% end %>
               </li>
               <li><%= button_to('Log out', destroy_user_session_path, method: :delete, class: 'btn btn-danger navbar-btn') %></li>
             <% else %>
