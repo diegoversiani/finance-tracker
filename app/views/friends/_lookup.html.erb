@@ -1,0 +1,65 @@
+<div id="friend-lookup">
+  
+  <h2>Search for friends</h2>
+
+  <%= form_tag search_friends_path, remote: true, method: :get, id: 'friend-lookup-form' do %>
+    <div class="form-group row no-padding text-center col-md-12">
+      <div class="col-md-10">
+        <%= text_field_tag :search_param, 
+                params[:search_param],
+                placeholder: 'First name, last name or email.',
+                autofocus: true,
+                class: 'form-control search-box input-lg' %>
+      </div>
+      <div class="col-md-2">
+        <%= button_tag(type: :submit, class: 'btn btn-lg btn-success') do %>
+          <i class="fa fa-search"></i> Look up a friend
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= render 'common/spinner' %>
+
+  <% if @users %>
+    <% if @users.size > 0 %>
+      <table class="table table-striped search-results-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+          <tr>
+            <td><%= user.full_name %></td>
+            <td><%= user.email %></td>
+            <td>
+              <%= link_to 'View Profile',
+                      user_path(user),
+                      class: 'btn btn-xs btn-primary' %>
+              <% if current_user.not_friends_with?(user.id) %>
+                <%= link_to 'Add friend',
+                        add_friend_path(user: current_user, friend: user),
+                        method: :post,
+                        class: 'btn btn-xs btn-success' %>
+              <% else %>
+                <span class="label label-default">already friends</span>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="row col-lg-12">
+        <p class="lead">No people match this search criteria.</p>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div id="friend-lookup-errors"></div>
+
+</div>
